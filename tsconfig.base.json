@@ -14,7 +14,13 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@invoice-manager/customers": ["packages/customers/src/index.ts"],
+      "@invoice-manager/invoices": ["packages/invoices/src/index.ts"],
+      "@invoice-manager/products": ["packages/products/src/index.ts"],
+      "@invoice-manager/state": ["shared/state/src/index.ts"],
+      "@invoice-manager/widgets": ["shared/widgets/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
