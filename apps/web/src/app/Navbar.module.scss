@@ -1,0 +1,47 @@
+/* Main Navbar styles */
+.navbar {
+    background-color: #333; /* Dark background for the navbar */
+    padding: 1rem; /* Add some padding to the navbar */
+    position: sticky; /* Make the navbar sticky at the top */
+    top: 0;
+    z-index: 1000; /* Ensure navbar stays on top */
+}
+
+/* Navigation list */
+.navList {
+    display: flex; /* Horizontally align the list items */
+    list-style-type: none; /* Remove bullets */
+    margin: 0;
+    padding: 0;
+}
+
+/* Each navigation item */
+.navItem {
+    margin-right: 2rem; /* Add spacing between nav items */
+}
+
+/* Navigation links */
+.navLink {
+    color: white; /* White text color */
+    text-decoration: none; /* Remove underline */
+    font-size: 1.2rem; /* Increase font size */
+    font-weight: bold;
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+/* Hover effect on navigation links */
+.navLink:hover {
+    color: #f0c14b; /* Highlight color when hovering */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navList {
+        flex-direction: column; /* Stack the nav items on smaller screens */
+        align-items: center;
+    }
+
+    .navItem {
+        margin: 0.5rem 0;
+    }
+}

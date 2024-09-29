@@ -4,12 +4,19 @@ import { RootState } from '@invoice-manager/state';
 import { addProduct, updateProduct, setSelectedProduct } from '../store/productSlice';
 import styles from './ProductFormDrawer.module.scss';
 
+interface Product {
+    id: string;
+    name: string;
+    price: number;
+}
+
 interface ProductFormDrawerProps {
     isOpen: boolean;
     onClose: () => void;
+    onAddProduct?: (product: Product) => void; // Optional callback for adding a product in parent
 }
 
-const ProductFormDrawer: React.FC<ProductFormDrawerProps> = ({ isOpen, onClose }) => {
+const ProductFormDrawer: React.FC<ProductFormDrawerProps> = ({ isOpen, onClose, onAddProduct }) => {
     const dispatch = useDispatch();
     const selectedProduct = useSelector((state: RootState) => state.product.selectedProduct);
 
@@ -45,13 +52,25 @@ const ProductFormDrawer: React.FC<ProductFormDrawerProps> = ({ isOpen, onClose }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        const newProduct = {
+            ...formData,
+            id: formData.id || Date.now().toString(), // Generate an ID if it's a new product
+        };
+
         if (formData.id) {
-            dispatch(updateProduct(formData));
+            // If product already exists (edit mode)
+            dispatch(updateProduct(newProduct));
+        } else if (onAddProduct) {
+            // If `onAddProduct` is provided, pass the new product back to the parent (InvoiceForm)
+            onAddProduct(newProduct);
         } else {
-            dispatch(addProduct({ ...formData, id: Date.now().toString() }));
+            // Otherwise, dispatch addProduct to Redux store
+            dispatch(addProduct(newProduct));
         }
-        onClose();
-        dispatch(setSelectedProduct(null)); // Reset the selected product after submission
+
+        onClose(); // Close the drawer after submitting
+        dispatch(setSelectedProduct(null)); // Reset selected product
     };
 
     if (!isOpen) return null;

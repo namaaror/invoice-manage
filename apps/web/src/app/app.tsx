@@ -1,28 +1,19 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { CustomersPage } from '@invoice-manager/customers';
 import { ProductsPage } from '@invoice-manager/products';
+import { InvoicesPage } from '@invoice-manager/invoices';
 import LandingPage from './LandingPage';
+import NavBar from './Navbar';
 
 const App: React.FC = () => {
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/customers">Customers</Link>
-            </li>
-            <li>
-              <Link to="/products">Products</Link>
-            </li>
-          </ul>
-        </nav>
+        {/* Use the NavBar component */}
+        <NavBar />
 
-        {/* Use Routes instead of Switch */}
+        {/* Routes */}
         <Routes>
           {/* Landing Page */}
           <Route path="/" element={<LandingPage />} />
@@ -32,6 +23,9 @@ const App: React.FC = () => {
 
           {/* Products Module */}
           <Route path="/products" element={<ProductsPage />} />
+
+          {/* Invoices Module */}
+          <Route path="/invoices" element={<InvoicesPage />} />
         </Routes>
       </div>
     </Router>

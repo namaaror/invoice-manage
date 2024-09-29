@@ -1,15 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
-import customerReducer from '@invoice-manager/customers';  // Path to customer slice
-import productReducer from '@invoice-manager/products';    // Path to product slice
+import customerReducer from '@invoice-manager/customers';
+import productReducer from '@invoice-manager/products';
+import invoiceReducer from '@invoice-manager/invoices';
 
-// Configure the Redux store
 export const store = configureStore({
     reducer: {
-        customer: customerReducer,  // Customer slice
-        product: productReducer,    // Product slice
+        customer: customerReducer,
+        product: productReducer,
+        invoice: invoiceReducer,
     },
 });
 
-// Export types for the root state and dispatch
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

@@ -1,19 +1,30 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // Product interface
-interface Product {
+export interface Product {
     id: string;
     name: string;
     price: number;
 }
 
-interface ProductState {
+export interface ProductState {
     products: Product[];
     selectedProduct: Product | null;
 }
 
+// Helper function to load products from localStorage
+const loadFromLocalStorage = (): Product[] => {
+    const storedProducts = localStorage.getItem('products');
+    return storedProducts ? JSON.parse(storedProducts) : [];
+};
+
+// Helper function to save products to localStorage
+const saveToLocalStorage = (products: Product[]) => {
+    localStorage.setItem('products', JSON.stringify(products));
+};
+
 const initialState: ProductState = {
-    products: [],
+    products: loadFromLocalStorage(),
     selectedProduct: null,
 };
 
@@ -23,24 +34,22 @@ const productSlice = createSlice({
     reducers: {
         loadProducts: (state, action: PayloadAction<Product[]>) => {
             state.products = action.payload;
+            saveToLocalStorage(state.products); // Save to localStorage
         },
         addProduct: (state, action: PayloadAction<Product>) => {
             state.products.push(action.payload);
-            // Save the updated products list to localStorage
-            localStorage.setItem('products', JSON.stringify(state.products));
+            saveToLocalStorage(state.products); // Save to localStorage
         },
         updateProduct: (state, action: PayloadAction<Product>) => {
             const index = state.products.findIndex(p => p.id === action.payload.id);
             if (index !== -1) {
                 state.products[index] = action.payload;
-                // Save the updated products list to localStorage
-                localStorage.setItem('products', JSON.stringify(state.products));
+                saveToLocalStorage(state.products); // Save to localStorage
             }
         },
         deleteProduct: (state, action: PayloadAction<string>) => {
             state.products = state.products.filter(p => p.id !== action.payload);
-            // Save the updated products list to localStorage
-            localStorage.setItem('products', JSON.stringify(state.products));
+            saveToLocalStorage(state.products); // Save to localStorage
         },
         setSelectedProduct: (state, action: PayloadAction<Product | null>) => {
             state.selectedProduct = action.payload;

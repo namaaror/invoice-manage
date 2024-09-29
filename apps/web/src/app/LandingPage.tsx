@@ -10,6 +10,7 @@ const LandingPage: React.FC = () => {
             <div className={styles.links}>
                 <Link to="/customers">Manage Customers</Link>
                 <Link to="/products">Manage Products</Link>
+                <Link to="/invoices">Manage Invoices</Link>
             </div>
         </div>
     );

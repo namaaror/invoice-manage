@@ -1,51 +1,90 @@
 .drawer {
     position: fixed;
     top: 0;
-    right: -100%;
+    right: 0;
+    width: 400px;
     height: 100%;
-    width: 300px;
-    background-color: white;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-    transition: right 0.3s ease;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
     padding: 20px;
     z-index: 1000;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+
+    &.open {
+        transform: translateX(0);
+    }
+
+    &.closed {
+        transform: translateX(100%);
+    }
 }
 
-.open {
-    right: 0; /* When the drawer is open */
-}
-
-.closeButton {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
+.drawerHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
 }
 
 h2 {
     font-size: 1.5rem;
-    margin-bottom: 20px;
+    margin: 0;
 }
 
-form {
+.customerForm {
     display: flex;
     flex-direction: column;
 }
 
-input {
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.formGroup {
+    margin-bottom: 15px;
+
+    label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
 }
 
-.submitButton {
-    background-color: #007bff;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.formActions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+
+    button {
+        padding: 10px 20px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    .cancelButton {
+        background-color: #ccc;
+        color: #fff;
+
+        &:hover {
+            background-color: #999;
+        }
+    }
+
+    .saveButton {
+        background-color: #007bff;
+        color: white;
+
+        &:hover {
+            background-color: #0056b3;
+        }
+    }
 }
