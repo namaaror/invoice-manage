@@ -17,7 +17,7 @@ export interface Invoice {
     status: 'pending' | 'processing' | 'delivered' | 'failed';
 }
 
-interface InvoiceState {
+export interface InvoiceState {
     invoices: Invoice[];
     selectedInvoice: Invoice | null;
 }

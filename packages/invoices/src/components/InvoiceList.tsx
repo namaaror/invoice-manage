@@ -1,6 +1,8 @@
 import React from 'react';
 import { Invoice } from '../store/invoiceSlice';
 import styles from './InvoiceList.module.scss'; // Import styles
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';  // Import the icons
 
 interface InvoiceListProps {
     invoices: Invoice[];
@@ -36,9 +38,10 @@ const InvoiceList: React.FC<InvoiceListProps> = ({ invoices, onUpdateStatus, onS
                             <tr key={invoice.id}>
                                 <td>{invoice.customer}</td>
                                 <td>{invoice.date}</td>
-                                <td>{invoice.totalAmount}</td>
+                                <td>₹{invoice.totalAmount}</td>
                                 <td>
                                     <select
+                                        className={styles.invoiceStatus}
                                         value={invoice.status}
                                         onChange={(e) => handleStatusChange(invoice.id, e)}
                                     >
@@ -49,12 +52,14 @@ const InvoiceList: React.FC<InvoiceListProps> = ({ invoices, onUpdateStatus, onS
                                     </select>
                                 </td>
                                 <td>
-                                    <button onClick={() => onSelectInvoice(invoice)}>Edit</button>
+                                    <button onClick={() => onSelectInvoice(invoice)}>
+                                        <FontAwesomeIcon icon={faEdit} /> {/* Pencil Icon */}
+                                    </button>
                                     <button
                                         className={styles.deleteButton}
                                         onClick={() => onDelete(invoice.id)}
                                     >
-                                        Delete
+                                        <FontAwesomeIcon icon={faTrash} /> {/* Trash Icon */}
                                     </button>
                                 </td>
                             </tr>

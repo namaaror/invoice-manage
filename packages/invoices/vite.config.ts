@@ -20,6 +20,9 @@ export default defineConfig({
     }),
   ],
 
+  optimizeDeps: {
+    include: ['@fortawesome/react-fontawesome', '@fortawesome/free-solid-svg-icons'],
+  },
   // Uncomment this if you are using workers.
   // worker: {
   //  plugins: [ nxViteTsPaths() ],

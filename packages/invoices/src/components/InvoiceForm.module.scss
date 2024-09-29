@@ -46,11 +46,15 @@
 
 .itemsSection {
     margin-top: 1rem;
+
+    .productName {
+        width: 18rem;
+    }
 }
 
 .itemInputRow {
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
     margin-top: 1rem;
 }
 
@@ -64,6 +68,7 @@
     border: none;
     padding: 10px 20px;
     font-size: 16px;
+    margin-top: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 
@@ -79,6 +84,8 @@ button:disabled {
 }
 
 .removeItemButton {
+    height: 3rem;
+    margin-top: 1.5rem;
     background-color: #dc3545;
     color: white;
     padding: 0.5rem 1rem;
@@ -90,4 +97,89 @@ button:disabled {
 
 .removeItemButton:hover {
     background-color: #c82333;
+}
+
+.formContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .customerName {
+        width: 280px;
+    }
+}
+
+.invoiceForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.formContainer {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.itemsSection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.itemInputRow {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.productName,
+.customerName {
+    min-width: 200px;
+}
+
+.removeItemButton {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.addItemButton {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 10px 20px; // Adjust padding to make the button smaller
+    cursor: pointer;
+    margin: 10px auto; // Center the button horizontally
+    display: block; // Ensure the button takes up the width of the content, not the container
+    width: 150px; // Set a fixed width for better alignment
+    text-align: center; // Ensure text is centered
+    border-radius: 5px; // Add some rounded corners
+}
+
+.totalAndStatusSection {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.totalAmount,
+.statusDropdown {
+    min-width: 200px;
+    padding: 8px;
+}
+
+.submitButton {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    align-self: flex-end;
 }

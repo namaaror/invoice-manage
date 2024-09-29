@@ -19,7 +19,7 @@ interface Product {
 
 interface InvoiceFormProps {
     onSubmit: (invoice: Invoice) => void;
-    selectedInvoice: Invoice | null; // Invoice to edit, or null for a new invoice
+    selectedInvoice: Invoice | null;
 }
 
 const InvoiceForm: React.FC<InvoiceFormProps> = ({ onSubmit, selectedInvoice }) => {
@@ -27,7 +27,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ onSubmit, selectedInvoice }) 
     const [items, setItems] = useState<InvoiceItem[]>([]);
     const [totalAmount, setTotalAmount] = useState(0);
     const [date, setDate] = useState('');
-    const [requestedByDate, setRequestedByDate] = useState(''); // New state for Requested By Date
+    const [requestedByDate, setRequestedByDate] = useState('');
     const [status, setStatus] = useState<'pending' | 'processing' | 'delivered' | 'failed'>('pending');
     const [customers, setCustomers] = useState<Customer[]>([]);
     const [products, setProducts] = useState<Product[]>([]);
@@ -62,14 +62,14 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ onSubmit, selectedInvoice }) 
             setItems(selectedInvoice.items);
             setTotalAmount(selectedInvoice.totalAmount);
             setDate(selectedInvoice.date);
-            setRequestedByDate(selectedInvoice.date); // Set requestedByDate when editing
+            setRequestedByDate(selectedInvoice.date);
             setStatus(selectedInvoice.status);
         } else {
             setCustomer('');
             setItems([]);
             setTotalAmount(0);
             setDate('');
-            setRequestedByDate(''); // Clear requestedByDate for new invoice
+            setRequestedByDate('');
             setStatus('pending');
         }
     }, [selectedInvoice]);
@@ -92,7 +92,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ onSubmit, selectedInvoice }) 
             customer,
             items,
             totalAmount,
-            date,
+            date: requestedByDate,
             status,
         };
 
@@ -103,7 +103,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ onSubmit, selectedInvoice }) 
         setItems([]);
         setTotalAmount(0);
         setDate('');
-        setRequestedByDate(''); // Clear requestedByDate
+        setRequestedByDate('');
         setStatus('pending');
     };
 
@@ -146,85 +146,101 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ onSubmit, selectedInvoice }) 
             <form className={styles.invoiceForm} onSubmit={handleSubmit}>
                 <h2>{selectedInvoice ? 'Edit Invoice' : 'New Invoice'}</h2>
 
-                <label>
-                    Customer Name:
-                    <select
-                        value={customer}
-                        onChange={(e) => {
-                            const value = e.target.value;
-                            if (value === 'addNew') {
-                                setCustomerDrawerOpen(true);
-                            } else {
-                                setCustomer(value);
-                            }
-                        }}
-                        required
-                    >
-                        <option value="" disabled>Select a customer</option>
-                        {customers.map((cust) => (
-                            <option key={cust.id} value={cust.name}>
-                                {cust.name}
-                            </option>
-                        ))}
-                        <option value="addNew">
-                            Add new +
-                        </option>
-                    </select>
-                </label>
+                <div className={styles.formContainer}>
+                    <label>
+                        Customer Name:
+                        <select
+                            value={customer}
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                if (value === 'addNew') {
+                                    setCustomerDrawerOpen(true);
+                                } else {
+                                    setCustomer(value);
+                                }
+                            }}
+                            required
+                            className={styles.customerName}
+                        >
+                            <option value="" disabled>Select a customer</option>
+                            <option value="addNew">Add new +</option>
+                            {customers.map((cust) => (
+                                <option key={cust.id} value={cust.name}>
+                                    {cust.name}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
 
-                <label>
-                    Requested By Date:
-                    <input
-                        type="date"
-                        value={requestedByDate}
-                        onChange={(e) => setRequestedByDate(e.target.value)}
-                        min={getTodayDate()} // Restrict date to today and future
-                        required
-                    />
-                </label>
+                    <label>
+                        Requested By Date:
+                        <input
+                            type="date"
+                            value={requestedByDate}
+                            onChange={(e) => setRequestedByDate(e.target.value)}
+                            min={getTodayDate()} // Restrict date to today and future
+                            required
+                        />
+                    </label>
+                </div>
 
                 <div className={styles.itemsSection}>
                     <h3>Invoice Items</h3>
                     {items.map((item, index) => (
                         <div className={styles.itemInputRow} key={index}>
-                            <select
-                                value={item.product}
-                                onChange={(e) => {
-                                    const value = e.target.value;
-                                    if (value === 'addNew') {
-                                        setProductDrawerOpen(true);
-                                    } else {
-                                        handleProductChange(index, value);
-                                    }
-                                }}
-                                required
-                            >
-                                <option value="" disabled>Select a product</option>
-                                {products.map((prod) => (
-                                    <option key={prod.id} value={prod.name}>
-                                        {prod.name}
-                                    </option>
-                                ))}
-                                <option value="addNew">Add new +</option>
-                            </select>
-                            <input
-                                type="number"
-                                placeholder="Quantity"
-                                value={item.quantity}
-                                onChange={(e) => handleQuantityChange(index, Number(e.target.value))}
-                            />
-                            <input
-                                type="number"
-                                placeholder="Rate"
-                                value={item.rate}
-                                disabled
-                            />
-                            <input
-                                type="number"
-                                placeholder="Amount"
-                                value={item.amount}
-                                disabled
-                            />
+                            <label>
+                                Product
+                                <select
+                                    className={styles.productName}
+                                    value={item.product}
+                                    onChange={(e) => {
+                                        const value = e.target.value;
+                                        if (value === 'addNew') {
+                                            setProductDrawerOpen(true);
+                                        } else {
+                                            handleProductChange(index, value);
+                                        }
+                                    }}
+                                    required
+                                >
+                                    <option value="" disabled>Select a product</option>
+                                    <option value="addNew">Add new +</option>
+                                    {products.map((prod) => (
+                                        <option key={prod.id} value={prod.name}>
+                                            {prod.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </label>
+
+                            <label>
+                                Quantity
+                                <input
+                                    type="number"
+                                    placeholder="Quantity"
+                                    value={item.quantity}
+                                    onChange={(e) => handleQuantityChange(index, Number(e.target.value))}
+                                />
+                            </label>
+                            <label>
+                                Rate
+                                <input
+                                    type="number"
+                                    placeholder="Rate"
+                                    value={item.rate}
+                                    disabled
+                                />
+                            </label>
+                            <label>
+                                Amount
+                                <input
+                                    type="number"
+                                    placeholder="Amount"
+                                    value={item.amount}
+                                    disabled
+                                />
+                            </label>
+
                             <button
                                 type="button"
                                 className={styles.removeItemButton}
@@ -244,29 +260,33 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ onSubmit, selectedInvoice }) 
                     </button>
                 </div>
 
-                <label>
-                    Total Amount:
-                    <input
-                        type="number"
-                        value={totalAmount}
-                        disabled
-                    />
-                </label>
+                <div className={styles.totalAndStatusSection}>
+                    <label className={styles.totalAmount}>
+                        Total Amount:
+                        <input
+                            type="number"
+                            value={totalAmount}
+                            disabled
+                        />
+                    </label>
 
-                <label>
-                    Status:
-                    <select
-                        value={status}
-                        onChange={(e) => setStatus(e.target.value as 'pending' | 'processing' | 'delivered' | 'failed')}
-                    >
-                        <option value="pending">Pending</option>
-                        <option value="processing">Processing</option>
-                        <option value="delivered">Delivered</option>
-                        <option value="failed">Failed</option>
-                    </select>
-                </label>
+                    <label className={styles.statusDropdown}>
+                        Status:
+                        <select
+                            value={status}
+                            onChange={(e) => setStatus(e.target.value as 'pending' | 'processing' | 'delivered' | 'failed')}
+                        >
+                            <option value="pending">Pending</option>
+                            <option value="processing">Processing</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="failed">Failed</option>
+                        </select>
+                    </label>
 
-                <button type="submit" disabled={items.length === 0}>{selectedInvoice ? 'Update Invoice' : 'Create Invoice'}</button>
+                    <button type="submit" className={styles.submitButton} disabled={items.length === 0}>
+                        {selectedInvoice ? 'Update Invoice' : 'Create Invoice'}
+                    </button>
+                </div>
             </form>
 
             {/* Reuse CustomerFormDrawer */}
