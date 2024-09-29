@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, addCustomer, updateCustomer, setSelectedCustomer } from '@invoice-manager/state';
 import styles from './CustomerFormDrawer.module.scss';
+import { RootState } from '@invoice-manager/state';
+import { addCustomer, updateCustomer, setSelectedCustomer } from '../store/customerSlice';
 
 interface CustomerFormDrawerProps {
     isOpen: boolean;

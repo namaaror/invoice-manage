@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@invoice-manager/state';
-import { setSelectedCustomer, deleteCustomer } from '@invoice-manager/state';
+import { setSelectedCustomer, deleteCustomer } from '../store/customerSlice';
 import styles from './CustomerList.module.scss';
 
-const CustomerList: React.FC = () => {
+interface CustomerListProps {
+    onEdit: () => void;  // Prop to handle opening the drawer for editing
+}
+
+const CustomerList: React.FC<CustomerListProps> = ({ onEdit }) => {
     const dispatch = useDispatch();
     const customers = useSelector((state: RootState) => state.customer.customers);
 
@@ -36,7 +40,14 @@ const CustomerList: React.FC = () => {
                             <p>{customer.phone}</p>
                         </div>
                         <div>
-                            <button onClick={() => dispatch(setSelectedCustomer(customer))}>Edit</button>
+                            <button
+                                onClick={() => {
+                                    dispatch(setSelectedCustomer(customer));
+                                    onEdit();
+                                }}
+                            >
+                                Edit
+                            </button>
                             <button onClick={() => dispatch(deleteCustomer(customer.id))}>Delete</button>
                         </div>
                     </li>

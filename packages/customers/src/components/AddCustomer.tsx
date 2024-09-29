@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addCustomer } from '@invoice-manager/state';
+import { addCustomer } from '../store/customerSlice';
 import styles from './AddCustomer.module.scss';
 
 const AddCustomer: React.FC = () => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@invoice-manager/state';
-import { loadCustomers, deleteCustomer } from '@invoice-manager/state';
+import { loadCustomers, setSelectedCustomer, deleteCustomer } from '../store/customerSlice';
 import CustomerFormDrawer from '../components/CustomerFormDrawer';
 import styles from './CustomersPage.module.scss';
 
@@ -20,6 +20,13 @@ export const CustomersPage: React.FC = () => {
 
   // Handle opening the drawer for adding a new customer
   const handleAddCustomer = () => {
+    dispatch(setSelectedCustomer(null)); // Reset the selected customer for adding a new one
+    setIsDrawerOpen(true);
+  };
+
+  // Handle opening the drawer for editing an existing customer
+  const handleEditCustomer = (customer: any) => {
+    dispatch(setSelectedCustomer(customer)); // Set the selected customer for editing
     setIsDrawerOpen(true);
   };
 
@@ -79,7 +86,12 @@ export const CustomersPage: React.FC = () => {
               <td>{customer.email}</td>
               <td>{customer.phone}</td>
               <td>
-                <button className={styles.editButton}>Edit</button>
+                <button
+                  className={styles.editButton}
+                  onClick={() => handleEditCustomer(customer)}
+                >
+                  Edit
+                </button>
                 <button
                   className={styles.deleteButton}
                   onClick={() => dispatch(deleteCustomer(customer.id))}
