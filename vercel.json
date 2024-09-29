@@ -1,8 +1,7 @@
 {
-    "version": 2,
     "builds": [
         {
-            "src": "apps/web/project.json",
+            "src": "package.json",
             "use": "@vercel/static-build",
             "config": {
                 "distDir": "dist/apps/web"
@@ -14,5 +13,6 @@
             "src": "/(.*)",
             "dest": "/"
         }
-    ]
+    ],
+    "buildCommand": "npx nx build web"
 }
