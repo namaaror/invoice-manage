@@ -14,5 +14,5 @@
             "dest": "/"
         }
     ],
-    "buildCommand": "npx nx build web"
+    "buildCommand": "npm install --legacy-peer-deps && npx nx build web"
 }
