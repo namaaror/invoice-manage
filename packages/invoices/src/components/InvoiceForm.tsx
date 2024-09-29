@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Invoice, InvoiceItem } from '../store/invoiceSlice';
 import styles from './InvoiceForm.module.scss';
 import CustomerFormDrawer from '../../../customers/src/components/CustomerFormDrawer';
-import ProductFormDrawer from '../../../products/src/components/ProductFormDrawer'; // Import the ProductFormDrawer
+import ProductFormDrawer from '../../../products/src/components/ProductFormDrawer';
 
 interface Customer {
     id: string;
@@ -27,11 +27,21 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ onSubmit, selectedInvoice }) 
     const [items, setItems] = useState<InvoiceItem[]>([]);
     const [totalAmount, setTotalAmount] = useState(0);
     const [date, setDate] = useState('');
+    const [requestedByDate, setRequestedByDate] = useState(''); // New state for Requested By Date
     const [status, setStatus] = useState<'pending' | 'processing' | 'delivered' | 'failed'>('pending');
     const [customers, setCustomers] = useState<Customer[]>([]);
     const [products, setProducts] = useState<Product[]>([]);
     const [isCustomerDrawerOpen, setCustomerDrawerOpen] = useState(false);
     const [isProductDrawerOpen, setProductDrawerOpen] = useState(false);
+
+    // Function to get today's date in yyyy-mm-dd format
+    const getTodayDate = () => {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        return `${yyyy}-${mm}-${dd}`;
+    };
 
     useEffect(() => {
         const storedCustomers = localStorage.getItem('customers');
@@ -52,12 +62,14 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ onSubmit, selectedInvoice }) 
             setItems(selectedInvoice.items);
             setTotalAmount(selectedInvoice.totalAmount);
             setDate(selectedInvoice.date);
+            setRequestedByDate(selectedInvoice.date); // Set requestedByDate when editing
             setStatus(selectedInvoice.status);
         } else {
             setCustomer('');
             setItems([]);
             setTotalAmount(0);
             setDate('');
+            setRequestedByDate(''); // Clear requestedByDate for new invoice
             setStatus('pending');
         }
     }, [selectedInvoice]);
@@ -91,6 +103,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ onSubmit, selectedInvoice }) 
         setItems([]);
         setTotalAmount(0);
         setDate('');
+        setRequestedByDate(''); // Clear requestedByDate
         setStatus('pending');
     };
 
@@ -159,6 +172,17 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ onSubmit, selectedInvoice }) 
                     </select>
                 </label>
 
+                <label>
+                    Requested By Date:
+                    <input
+                        type="date"
+                        value={requestedByDate}
+                        onChange={(e) => setRequestedByDate(e.target.value)}
+                        min={getTodayDate()} // Restrict date to today and future
+                        required
+                    />
+                </label>
+
                 <div className={styles.itemsSection}>
                     <h3>Invoice Items</h3>
                     {items.map((item, index) => (
@@ -214,6 +238,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ onSubmit, selectedInvoice }) 
                         type="button"
                         className={styles.addItemButton}
                         onClick={addItem}
+                        disabled={!customer || !requestedByDate} // Disable button if customer or date is missing
                     >
                         Add Item
                     </button>
@@ -241,7 +266,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ onSubmit, selectedInvoice }) 
                     </select>
                 </label>
 
-                <button type="submit">{selectedInvoice ? 'Update Invoice' : 'Create Invoice'}</button>
+                <button type="submit" disabled={items.length === 0}>{selectedInvoice ? 'Update Invoice' : 'Create Invoice'}</button>
             </form>
 
             {/* Reuse CustomerFormDrawer */}
