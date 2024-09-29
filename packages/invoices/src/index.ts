@@ -1,4 +1,3 @@
-export * from './components/InvoiceFormDrawer';
 export * from './pages/InvoicesPage';
 export * from './store/invoiceSlice';
 
