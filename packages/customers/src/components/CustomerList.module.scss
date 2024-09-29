@@ -1,0 +1,38 @@
+.customerListContainer {
+  padding: 20px;
+}
+
+.searchInput {
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.customerItem {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.paginationButton {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}

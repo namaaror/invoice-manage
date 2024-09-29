@@ -1,14 +1,12 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.scss';
+// apps/web/src/app/App.tsx
+import React from 'react';
+import { CustomersPage } from '@invoice-manager/customers';
 
-import NxWelcome from './nx-welcome';
-
-export function App() {
-  return (
-    <div>
-      <NxWelcome title="web" />
-    </div>
-  );
-}
+const App = () => (
+  <div>
+    <h1>Customers Module</h1>
+    <CustomersPage />
+  </div>
+);
 
 export default App;

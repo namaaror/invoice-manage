@@ -1,13 +1,12 @@
-import { StrictMode } from 'react';
-import * as ReactDOM from 'react-dom/client';
-
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { store } from '@invoice-manager/state';
 import App from './app/app';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <StrictMode>
+ReactDOM.render(
+  <Provider store={store}>
     <App />
-  </StrictMode>
+  </Provider>,
+  document.getElementById('root')
 );

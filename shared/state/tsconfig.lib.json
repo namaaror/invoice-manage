@@ -2,9 +2,18 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
+    "declaration": true,
+    "baseUrl": ".", // Set baseUrl to allow non-relative imports like @invoice-manager/state
+    "paths": {
+      "@invoice-manager/*": [
+        "../../packages/*/src"
+      ], // Adjust based on your project structure
+      "@invoice-manager/state": [
+        "../../shared/state/src/index.ts"
+      ] // Map the state library correctly
+    },
     "types": [
       "node",
-
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts"
     ]
@@ -20,5 +29,10 @@
     "src/**/*.spec.jsx",
     "src/**/*.test.jsx"
   ],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
+  "include": [
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ]
 }
