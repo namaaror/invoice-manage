@@ -1,0 +1,3 @@
+[build]
+  command = "npx nx build web"
+  publish = "dist"  # Publish from the dist directory relative to apps/web
