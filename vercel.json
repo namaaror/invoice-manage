@@ -14,5 +14,5 @@
             "dest": "/"
         }
     ],
-    "buildCommand": "npx nx build web"
+    "buildCommand": "npx nx build web --skip-nx-cache"
 }
