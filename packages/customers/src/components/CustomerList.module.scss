@@ -5,21 +5,73 @@
 .searchInput {
   margin-bottom: 20px;
   padding: 10px;
-  width: 100%;
+  width: 20%;
   font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-.customerItem {
+.customerTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.customerTable th,
+.customerTable td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.customerTable th {
   background-color: #f9f9f9;
-  padding: 10px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-  border-radius: 5px;
+  font-weight: bold;
+}
+
+.customerTable td {
+  background-color: #fff;
+}
+
+.editButton {
+  background-color: #007bff;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.editButton:hover {
+  background-color: #0056b3;
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
+}
+
+.customersNoPresent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  padding: 20px;
 }
 
 .pagination {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   margin-top: 20px;
 }
 
@@ -30,9 +82,14 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin: 0 10px;
+}
 
-  &:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
+.paginationButton:hover {
+  background-color: #0056b3;
+}
+
+.paginationButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }

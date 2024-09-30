@@ -5,10 +5,14 @@
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "types": ["vite/client"]
+    "types": [
+      "vite/client"
+    ]
   },
   "files": [],
-  "include": [],
+  "include": [
+    "declarations.d.ts"
+  ],
   "references": [
     {
       "path": "./tsconfig.lib.json"

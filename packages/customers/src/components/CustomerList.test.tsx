@@ -65,7 +65,7 @@ describe('CustomerList', () => {
         renderComponent();
 
         // Search for "Customer 1"
-        fireEvent.change(screen.getByPlaceholderText('Search customers...'), {
+        fireEvent.change(screen.getByPlaceholderText('Search by name, email, or phone'), {
             target: { value: 'Customer 1' },
         });
 

@@ -10,17 +10,36 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": [
+      "es2020",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@invoice-manager/customers": ["packages/customers/src/index.ts"],
-      "@invoice-manager/invoices": ["packages/invoices/src/index.ts"],
-      "@invoice-manager/products": ["packages/products/src/index.ts"],
-      "@invoice-manager/state": ["shared/state/src/index.ts"],
-      "@invoice-manager/widgets": ["shared/widgets/src/index.ts"]
+      "@invoice-manager/customers": [
+        "packages/customers/src/index.ts"
+      ],
+      "@invoice-manager/invoices": [
+        "packages/invoices/src/index.ts"
+      ],
+      "@invoice-manager/products": [
+        "packages/products/src/index.ts"
+      ],
+      "@invoice-manager/state": [
+        "shared/state/src/index.ts"
+      ],
+      "@invoice-manager/widgets": [
+        "shared/widgets/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ],
+  "include": [
+    "declarations.d.ts"
+  ]
 }
