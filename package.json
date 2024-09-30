@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "npx nx build web"
+    "build": "npx nx build web --skip-nx-cache"
   },
   "private": true,
   "dependencies": {
