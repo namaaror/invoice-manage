@@ -1,3 +1,3 @@
 import nxPreset from '@nx/jest/preset';
 
-module.exports = { ...nxPreset };
+export default { ...nxPreset };
