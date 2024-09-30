@@ -70,59 +70,67 @@ export const CustomersPage: React.FC = () => {
         className={styles.searchInput}
       />
 
-      <table className={styles.customerTable}>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentCustomers.map((customer) => (
-            <tr key={customer.id}>
-              <td>{customer.name}</td>
-              <td>{customer.email}</td>
-              <td>{customer.phone}</td>
-              <td>
-                <button
-                  className={styles.editButton}
-                  onClick={() => handleEditCustomer(customer)}
-                >
-                  Edit
-                </button>
-                <button
-                  className={styles.deleteButton}
-                  onClick={() => dispatch(deleteCustomer(customer.id))}
-                >
-                  Delete
-                </button>
-              </td>
+      {currentCustomers.length > 0 ?
+        <table className={styles.customerTable}>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {currentCustomers.map((customer) => (
+              <tr key={customer.id}>
+                <td>{customer.name}</td>
+                <td>{customer.email}</td>
+                <td>{customer.phone}</td>
+                <td>
+                  <button
+                    className={styles.editButton}
+                    onClick={() => handleEditCustomer(customer)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className={styles.deleteButton}
+                    onClick={() => dispatch(deleteCustomer(customer.id))}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table> :
+        <div className={styles.customersNoPresent}>
+          No customers
+        </div>
+      }
 
-      <div className={styles.pagination}>
-        <button
-          className={styles.paginationButton}
-          onClick={() => setCurrentPage(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          className={styles.paginationButton}
-          onClick={() => setCurrentPage(currentPage + 1)}
-          disabled={currentPage >= totalPages}
-        >
-          Next
-        </button>
-      </div>
+      {totalPages > 1 &&
+        <div className={styles.pagination}>
+          <button
+            className={styles.paginationButton}
+            onClick={() => setCurrentPage(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          <span>
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            className={styles.paginationButton}
+            onClick={() => setCurrentPage(currentPage + 1)}
+            disabled={currentPage >= totalPages}
+          >
+            Next
+          </button>
+        </div>
+      }
+
 
       {isDrawerOpen && <CustomerFormDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} />}
     </div>

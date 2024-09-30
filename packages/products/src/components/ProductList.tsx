@@ -42,7 +42,7 @@ const ProductList: React.FC<ProductListProps> = ({ onEdit }) => {
                     {filteredProducts.map((product) => (
                         <tr key={product.id} className={styles.productItem}>
                             <td>{product.name}</td>
-                            <td>₹{product.price.toFixed(2)}</td>
+                            <td>₹{product.rate.toFixed(2)}</td>
                             <td>
                                 <button
                                     className={styles.editButton}

@@ -4,7 +4,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export interface Product {
     id: string;
     name: string;
-    price: number;
+    rate: number;
 }
 
 export interface ProductState {

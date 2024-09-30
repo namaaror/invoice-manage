@@ -14,7 +14,7 @@ interface Customer {
 interface Product {
     id: string;
     name: string;
-    price: number;
+    rate: number;
 }
 
 interface InvoiceFormProps {
@@ -120,7 +120,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ onSubmit, selectedInvoice }) 
         if (selectedProduct) {
             const updatedItems = items.map((item, i) =>
                 i === index
-                    ? { ...item, product: selectedProduct.name, rate: selectedProduct.price, amount: item.quantity * selectedProduct.price }
+                    ? { ...item, product: selectedProduct.name, rate: selectedProduct.rate, amount: item.quantity * selectedProduct.rate }
                     : item
             );
             setItems(updatedItems);

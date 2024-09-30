@@ -14,7 +14,7 @@ interface Customer {
 interface CustomerFormDrawerProps {
     isOpen: boolean;
     onClose: () => void;
-    onAddCustomer?: (customer: Customer) => void; // Optional callback to add customer in parent
+    onAddCustomer?: (customer: Customer) => void;
 }
 
 const CustomerFormDrawer: React.FC<CustomerFormDrawerProps> = ({ isOpen, onClose, onAddCustomer }) => {
@@ -27,6 +27,9 @@ const CustomerFormDrawer: React.FC<CustomerFormDrawerProps> = ({ isOpen, onClose
         email: '',
         phone: '',
     });
+
+    const [phoneError, setPhoneError] = useState('');
+    const [nameError, setNameError] = useState('');
 
     useEffect(() => {
         if (selectedCustomer) {
@@ -52,29 +55,47 @@ const CustomerFormDrawer: React.FC<CustomerFormDrawerProps> = ({ isOpen, onClose
             ...formData,
             [name]: value,
         });
+
+        if (name === 'phone') {
+            const phoneRegex = /^\d{10}$/;
+            if (!phoneRegex.test(value)) {
+                setPhoneError('Phone number must be 10 digits long');
+            } else {
+                setPhoneError('');
+            }
+        }
+
+        if (name === 'name') {
+            const nameRegex = /^[A-Za-z\s]+$/;
+            if (!nameRegex.test(value)) {
+                setNameError('Name must contain only alphabets and spaces');
+            } else {
+                setNameError('');
+            }
+        }
     };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        if (phoneError || nameError) {
+            return;
+        }
+
         if (formData.id) {
-            // If the customer exists (editing mode)
             dispatch(updateCustomer(formData));
         } else {
-            // Adding a new customer
             const newCustomer = { ...formData, id: Date.now().toString() };
 
             if (onAddCustomer) {
-                // If `onAddCustomer` is provided, call it to pass the customer to the parent (InvoiceForm)
                 onAddCustomer(newCustomer);
             } else {
-                // If `onAddCustomer` is not provided, dispatch to Redux store
                 dispatch(addCustomer(newCustomer));
             }
         }
 
-        onClose(); // Close the drawer after submitting
-        dispatch(setSelectedCustomer(null)); // Reset selected customer after submission
+        onClose();
+        dispatch(setSelectedCustomer(null));
     };
 
     if (!isOpen) return null;
@@ -95,6 +116,7 @@ const CustomerFormDrawer: React.FC<CustomerFormDrawerProps> = ({ isOpen, onClose
                         onChange={handleChange}
                         required
                     />
+                    {nameError && <p className={styles.error}>{nameError}</p>} {/* Display error message */}
                 </div>
 
                 <div className={styles.formGroup}>
@@ -119,13 +141,14 @@ const CustomerFormDrawer: React.FC<CustomerFormDrawerProps> = ({ isOpen, onClose
                         onChange={handleChange}
                         required
                     />
+                    {phoneError && <p className={styles.error}>{phoneError}</p>} {/* Display error message */}
                 </div>
 
                 <div className={styles.formActions}>
                     <button type="button" className={styles.cancelButton} onClick={onClose}>
                         Cancel
                     </button>
-                    <button type="submit" className={styles.saveButton}>
+                    <button type="submit" className={styles.saveButton} disabled={!!phoneError || !!nameError}>
                         {selectedCustomer ? 'Update' : 'Save'}
                     </button>
                 </div>

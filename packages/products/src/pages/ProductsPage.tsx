@@ -9,7 +9,7 @@ import styles from './ProductsPage.module.scss';
 interface Product {
     id: string;
     name: string;
-    price: number;
+    rate: number;
 }
 
 export const ProductsPage: React.FC = () => {
@@ -74,7 +74,7 @@ export const ProductsPage: React.FC = () => {
                 className={styles.searchInput}
             />
 
-            <table className={styles.productTable}>
+            {currentProducts.length > 0 ? <table className={styles.productTable}>
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -86,7 +86,7 @@ export const ProductsPage: React.FC = () => {
                     {currentProducts.map((product) => (
                         <tr key={product.id}>
                             <td>{product.name}</td>
-                            <td>₹{product.price.toFixed(2)}</td>
+                            <td>₹{product.rate.toFixed(2)}</td>
                             <td>
                                 <button
                                     className={styles.editButton}
@@ -104,27 +104,35 @@ export const ProductsPage: React.FC = () => {
                         </tr>
                     ))}
                 </tbody>
-            </table>
+            </table> :
+                <div className={styles.productsNotPresent}>
+                    No products
+                </div>
+            }
 
-            <div className={styles.pagination}>
-                <button
-                    className={styles.paginationButton}
-                    onClick={() => setCurrentPage(currentPage - 1)}
-                    disabled={currentPage === 1}
-                >
-                    Previous
-                </button>
-                <span>
-                    Page {currentPage} of {totalPages}
-                </span>
-                <button
-                    className={styles.paginationButton}
-                    onClick={() => setCurrentPage(currentPage + 1)}
-                    disabled={currentPage >= totalPages}
-                >
-                    Next
-                </button>
-            </div>
+
+            {totalPages > 1 &&
+                <div className={styles.pagination}>
+                    <button
+                        className={styles.paginationButton}
+                        onClick={() => setCurrentPage(currentPage - 1)}
+                        disabled={currentPage === 1}
+                    >
+                        Previous
+                    </button>
+                    <span>
+                        Page {currentPage} of {totalPages}
+                    </span>
+                    <button
+                        className={styles.paginationButton}
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                        disabled={currentPage >= totalPages}
+                    >
+                        Next
+                    </button>
+                </div>
+            }
+
 
             {isDrawerOpen && <ProductFormDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer} />}
         </div>

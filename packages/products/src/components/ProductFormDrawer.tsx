@@ -7,7 +7,7 @@ import styles from './ProductFormDrawer.module.scss';
 interface Product {
     id: string;
     name: string;
-    price: number;
+    rate: number;
 }
 
 interface ProductFormDrawerProps {
@@ -23,7 +23,7 @@ const ProductFormDrawer: React.FC<ProductFormDrawerProps> = ({ isOpen, onClose, 
     const [formData, setFormData] = useState({
         id: '',
         name: '',
-        price: 0,
+        rate: 0,
     });
 
     useEffect(() => {
@@ -31,13 +31,13 @@ const ProductFormDrawer: React.FC<ProductFormDrawerProps> = ({ isOpen, onClose, 
             setFormData({
                 id: selectedProduct.id,
                 name: selectedProduct.name,
-                price: selectedProduct.price,
+                rate: selectedProduct.rate,
             });
         } else {
             setFormData({
                 id: '',
                 name: '',
-                price: 0,
+                rate: 0,
             });
         }
     }, [selectedProduct]);
@@ -46,7 +46,7 @@ const ProductFormDrawer: React.FC<ProductFormDrawerProps> = ({ isOpen, onClose, 
         const { name, value } = e.target;
         setFormData((prev) => ({
             ...prev,
-            [name]: name === 'price' ? parseFloat(value) : value,
+            [name]: name === 'rate' ? parseFloat(value) : value,
         }));
     };
 
@@ -90,8 +90,8 @@ const ProductFormDrawer: React.FC<ProductFormDrawerProps> = ({ isOpen, onClose, 
                 />
                 <input
                     type="number"
-                    name="price"
-                    value={formData.price}
+                    name="rate"
+                    value={formData.rate}
                     onChange={handleChange}
                     placeholder="Price"
                     required

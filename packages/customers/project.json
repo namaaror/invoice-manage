@@ -5,5 +5,13 @@
   "projectType": "library",
   "tags": [],
   "// targets": "to see all targets run: nx show project customers --web",
-  "targets": {}
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "packages/customers/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
 }
