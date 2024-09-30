@@ -5,6 +5,7 @@
   "scripts": {
     "build": "npx nx build web --skip-nx-cache"
   },
+  "type": "module",
   "private": true,
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
