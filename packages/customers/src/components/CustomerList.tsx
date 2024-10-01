@@ -90,24 +90,26 @@ const CustomerList: React.FC<CustomerListProps> = ({ onEdit }) => {
                         </tbody>
                     </table>
 
-                    {/* Pagination Controls */}
-                    <div className={styles.pagination}>
-                        <button
-                            className={styles.paginationButton}
-                            onClick={handlePreviousPage}
-                            disabled={currentPage === 1}
-                        >
-                            Previous
-                        </button>
-                        <span>Page {currentPage} of {totalPages}</span>
-                        <button
-                            className={styles.paginationButton}
-                            onClick={handleNextPage}
-                            disabled={currentPage === totalPages}
-                        >
-                            Next
-                        </button>
-                    </div>
+                    {totalPages > 1 &&
+                        <div className={styles.pagination}>
+                            <button
+                                className={styles.paginationButton}
+                                onClick={handlePreviousPage}
+                                disabled={currentPage === 1}
+                            >
+                                Previous
+                            </button>
+                            <span>Page {currentPage} of {totalPages}</span>
+                            <button
+                                className={styles.paginationButton}
+                                onClick={handleNextPage}
+                                disabled={currentPage === totalPages}
+                            >
+                                Next
+                            </button>
+                        </div>
+                    }
+
                 </>
             ) : (
                 <div className={styles.customersNoPresent}>No customers</div>
